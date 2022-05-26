@@ -5,12 +5,11 @@ const menuItems = Array.from(document.getElementsByClassName('menu_sub')); // м
 menuLink.forEach((element) => {
     if(element.nextElementSibling != null){ // если есть дочерний элемент
         element.onclick = function() {
-            menuItems.forEach((activeElement) => {
-                if(activeElement.classList.contains('menu_active')) {
-                    activeElement.classList.remove('menu_active');
-                }; // если есть дочерний элемент
+            menuItems.forEach((activeElement) => { // итерация по menuItems
+                if(activeElement.classList.contains('menu_active')) { // если есть элемент с .menu_active
+                    activeElement.classList.remove('menu_active'); // удалить .menu_active
+                };
             })
-            // необходимо удалить menu_active у другого элемента
             element.nextElementSibling.classList.add('menu_active'); // к дочернему элементу добавить menu_active
             return false;
         }
