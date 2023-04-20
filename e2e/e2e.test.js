@@ -37,9 +37,8 @@ describe('Сhecking the menu display', () => {
     await page.goto(baseUrl);
 
     await page.waitForSelector('.list_links_company');
-    await page.click('.list_links_company'); 
+    await page.click('.list_links_company');
     await page.click('.company_info');
-
 
     const listLinksCompany = '.list_links_company';
 
@@ -47,8 +46,9 @@ describe('Сhecking the menu display', () => {
       const navigationItem = document.querySelector(selector);
       const activeSubmenu = navigationItem.nextElementSibling.classList.contains('menu_active');
 
-      if(!activeSubmenu) return alert('error in submenu display test') 
-    }, listLinksCompany)
+      if (!activeSubmenu) return alert('error in submenu display test');
+      return true;
+    }, listLinksCompany);
   });
 
   test('hidden submenus when opening another submenu', async () => {
@@ -63,28 +63,26 @@ describe('Сhecking the menu display', () => {
       const navigationItem = document.querySelector(selector);
       const activeSubmenu = navigationItem.nextElementSibling.classList.contains('menu_active');
 
-      if(!activeSubmenu) return alert('error in the appearance of the first submenu') 
-    }, listLinksCompany)
+      if (!activeSubmenu) return alert('error in the appearance of the first submenu');
+      return true;
+    }, listLinksCompany);
 
     await page.waitForSelector('.list_links_service');
     await page.click('.list_links_service');
     await page.click('.service_item');
-
 
     const listLinksService = '.list_links_service';
 
     await page.evaluate((selector) => {
       const navigationItem = document.querySelector(selector);
       const activeSubmenu = navigationItem.nextElementSibling.classList.contains('menu_active');
-      
-      const listLinksCompany = document.querySelector('.list_links_company');
-      const noActiveSubmenuCompany = listLinksCompany.nextElementSibling.classList.contains('menu_active');
 
+      const hiddenListLinks = document.querySelector('.list_links_company');
+      const noActiveSubmenuCompany = hiddenListLinks.nextElementSibling.classList.contains('menu_active');
 
-      if(!activeSubmenu) return alert('error in the appearance of the second submenu') 
-      if(noActiveSubmenuCompany) return alert('first submenu should disappear') 
-
-    }, listLinksService)
+      if (!activeSubmenu) return alert('error in the appearance of the second submenu');
+      if (noActiveSubmenuCompany) return alert('first submenu should disappear');
+      return true;
+    }, listLinksService);
   });
-
 });
